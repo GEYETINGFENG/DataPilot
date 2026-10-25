@@ -1,0 +1,16 @@
+# Task: design charts
+
+Design at most {{max_charts}} ECharts charts that best support the answer to this question:
+{{question}}
+
+Query results (step number, title, SQL, column names and the first rows):
+{{results}}
+
+Rules:
+- Only chart results where a chart helps: trends over time (line), comparisons across categories (bar), shares of a whole with few parts (pie). Skip the others. If nothing is worth charting, return an empty list.
+- Do not write any data values. The full result of the chosen step is injected as `dataset.source`, with the column names as the first row. Map columns to the chart with `encode`, using the exact column names, for example {"type": "bar", "encode": {"x": "region", "y": "repurchase_rate"}} or, for pie, {"type": "pie", "encode": {"itemName": "reason", "value": "refunds"}}.
+- Set axis types (category / value / time), a tooltip and a legend when there are several series. No functions, no JavaScript, only JSON.
+- Titles go in "title", in the language of the question; do not put a title inside the option.
+
+Reply with JSON only, no other text:
+{"charts": [{"step": 1, "title": "chart title", "option": {"tooltip": {"trigger": "axis"}, "xAxis": {"type": "category"}, "yAxis": {"type": "value"}, "series": [{"type": "bar", "encode": {"x": "column_a", "y": "column_b"}}]}}]}

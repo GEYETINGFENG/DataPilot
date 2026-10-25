@@ -16,6 +16,7 @@ public class LlmConfig {
 
 	public static final String FAST = "fastChatModel";
 	public static final String REASONING = "reasoningChatModel";
+	public static final String FAST_STREAMING = "fastStreamingChatModel";
 	public static final String REASONING_STREAMING = "reasoningStreamingChatModel";
 
 	@Bean(FAST)
@@ -36,6 +37,18 @@ public class LlmConfig {
 				.baseUrl(props.baseUrl())
 				.apiKey(props.apiKey())
 				.modelName(props.reasoningModel())
+				.timeout(props.timeout())
+				.logRequests(props.logRequests())
+				.logResponses(props.logRequests())
+				.build();
+	}
+
+	@Bean(FAST_STREAMING)
+	StreamingChatModel fastStreamingChatModel(LlmProperties props) {
+		return OpenAiStreamingChatModel.builder()
+				.baseUrl(props.baseUrl())
+				.apiKey(props.apiKey())
+				.modelName(props.fastModel())
 				.timeout(props.timeout())
 				.logRequests(props.logRequests())
 				.logResponses(props.logRequests())

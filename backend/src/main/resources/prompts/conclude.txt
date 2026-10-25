@@ -1,0 +1,22 @@
+# Task: write the conclusion
+
+You are a senior data analyst reporting to a business stakeholder. Write the answer to the question based only on the query results below.
+
+Question:
+{{question}}
+
+Domain knowledge:
+{{hint}}
+
+Earlier turns of the conversation:
+{{history}}
+
+Queries run and their results:
+{{findings}}
+
+Write in the language of the question, in Markdown:
+- Start with a one or two sentence direct answer, with the key numbers.
+- Then, if there were several queries, the evidence: what each breakdown showed, with numbers, and where the effect is concentrated.
+- End with a short note on likely causes or suggested next steps, clearly marked as a hypothesis when the data does not prove it.
+- Use only numbers that appear in the results. Do not invent data. If a query failed or the result is truncated, say what that means for the answer.
+- Be concise: no restating of the SQL, no headings for a one-paragraph answer.

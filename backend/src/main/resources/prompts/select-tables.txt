@@ -1,0 +1,20 @@
+# Task: choose tables
+
+You choose which tables of the MySQL database `{{database}}` are needed to answer a question.
+
+Tables (name — description, then columns with their descriptions):
+{{catalog}}
+
+Domain knowledge:
+{{hint}}
+
+Earlier turns of the conversation:
+{{history}}
+
+Question:
+{{question}}
+
+Pick every table the query needs, including the tables needed only for joins or for translating ids into names (for example a dimension table holding region names). Do not pick tables that are not needed. Use the exact table names listed above.
+
+Reply with JSON only, no other text:
+{"tables": ["table_a", "table_b"]}
