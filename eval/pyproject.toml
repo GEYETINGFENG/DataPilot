@@ -1,0 +1,25 @@
+[project]
+name = "datapilot-eval"
+version = "0.1.0"
+description = "BIRD Mini-Dev evaluation harness for DataPilot"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27,<1",
+    "openai>=1.40,<3",
+    "pymysql>=1.1,<2",
+]
+
+[project.scripts]
+datapilot-eval = "datapilot_eval.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["uv_build>=0.8,<0.12"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["mysql: needs a running MySQL (set EVAL_MYSQL_TESTS=1)"]
