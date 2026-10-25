@@ -63,6 +63,29 @@ cd frontend && npm install && npm run dev
 
 生成脚本见 [`docker/mysql/init/03-demo-shop-data.sql`](docker/mysql/init/03-demo-shop-data.sql)（含答案，想自己先探索的话可以晚点看）。
 
+## 评测（Evaluation）
+
+在公开基准 [BIRD](https://bird-bench.github.io/) 的 **Mini-Dev** 集（500 道人工精选题，11 个数据库，MySQL 版本）上测量执行准确率（EX），评分逻辑与 BIRD 官方脚本一致。消融实验逐行叠加智能体能力，看每一项带来多少提升。这些数字只用于在同一设置下对比各项能力，模型、提示词、方言都与 BIRD 排行榜不同，不与榜单成绩并列比较。
+
+> ⚠️ **尚未在真实数据上运行，以下全部为 TBD。** 评测框架已完成并通过测试，但开发环境无法访问 BIRD 数据下载地址，也没有 `LLM_API_KEY`。没有跑出来的数字一律不填。
+
+| 设置 | simple | moderate | challenging | 总计 |
+|---|---|---|---|---|
+| 基线：单次调用 LLM，给出完整表结构 | TBD | TBD | TBD | TBD |
+| + 表检索 | TBD | TBD | TBD | TBD |
+| + 报错自我纠错 | TBD | TBD | TBD | TBD |
+| + 提示（BIRD evidence） | TBD | TBD | TBD | TBD |
+
+模型、日期、完整命令：TBD（每次运行都会把它们写进 `eval/runs/<name>/summary.md`）。
+
+复现方法、数据来源与许可（CC BY-SA 4.0）、评分规则见 [`eval/README.md`](eval/README.md)：
+
+```bash
+cd eval
+uv run datapilot-eval download && uv run datapilot-eval load
+LLM_API_KEY=... uv run datapilot-eval run --runner baseline
+```
+
 ## 项目结构
 
 ```
@@ -72,6 +95,7 @@ backend/    Spring Boot 4 后端
   llm/        模型配置（快模型 / 推理模型分层）
 frontend/   Vue 3 + Ant Design Vue 前端
 docker/     示例数据库初始化脚本
+eval/       BIRD Mini-Dev 评测框架（Python）
 ```
 
 ## 路线图

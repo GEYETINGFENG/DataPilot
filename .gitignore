@@ -4,3 +4,10 @@
 *.iml
 .env
 .env.*
+
+# Evaluation: downloaded BIRD data and run outputs
+eval/data/
+eval/runs/
+eval/.venv/
+__pycache__/
+.pytest_cache/
