@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: datapilot
+  # Application metadata (conversations, feedback, ...). Managed by Flyway.
+  datasource:
+    url: ${DATAPILOT_DB_URL:jdbc:mysql://localhost:3307/datapilot}
+    username: ${DATAPILOT_DB_USER:datapilot}
+    password: ${DATAPILOT_DB_PASSWORD:datapilot}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6380}
+
+datapilot:
+  # The database the agent analyses. Use an account that only has SELECT.
+  warehouse:
+    url: ${WAREHOUSE_URL:jdbc:mysql://localhost:3307/demo_shop}
+    username: ${WAREHOUSE_USER:dp_reader}
+    password: ${WAREHOUSE_PASSWORD:dp_reader}
+    schema: ${WAREHOUSE_SCHEMA:demo_shop}
+    query-timeout-seconds: 15
+    max-rows: 1000
+  llm:
+    base-url: ${LLM_BASE_URL:https://api.deepseek.com/v1}
+    api-key: ${LLM_API_KEY:not-configured}
+    fast-model: ${LLM_FAST_MODEL:deepseek-chat}
+    reasoning-model: ${LLM_REASONING_MODEL:deepseek-reasoner}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
