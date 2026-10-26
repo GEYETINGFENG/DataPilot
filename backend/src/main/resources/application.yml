@@ -1,6 +1,12 @@
 spring:
   application:
     name: datapilot
+  # Local secrets (LLM_API_KEY, ...) live in a git-ignored .env at the repo root; see .env.example.
+  # Real environment variables still take precedence.
+  config:
+    import:
+      - optional:file:../.env[.properties]
+      - optional:file:.env[.properties]
   # Application metadata (conversations, feedback, ...). Managed by Flyway.
   datasource:
     url: ${DATAPILOT_DB_URL:jdbc:mysql://localhost:3307/datapilot}
