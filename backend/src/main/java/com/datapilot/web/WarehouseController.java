@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -30,18 +31,24 @@ public class WarehouseController {
 		this.guard = guard;
 	}
 
+	/**
+	 * @param database schema to list, default schema if omitted; must be in the allowlist
+	 */
 	@GetMapping("/tables")
-	public List<TableSchema> tables() {
-		return warehouse.listTables();
+	public List<TableSchema> tables(@RequestParam(required = false) String database) {
+		return warehouse.listTables(database);
 	}
 
 	@PostMapping("/query")
 	public QueryResponse query(@Valid @RequestBody QueryRequest request) {
 		String sql = guard.check(request.sql());
-		return new QueryResponse(sql, warehouse.query(sql));
+		return new QueryResponse(sql, warehouse.query(request.database(), sql));
 	}
 
-	public record QueryRequest(@NotBlank String sql) {
+	/**
+	 * @param database schema to query, default schema if null; must be in the allowlist
+	 */
+	public record QueryRequest(@NotBlank String sql, String database) {
 	}
 
 	/**

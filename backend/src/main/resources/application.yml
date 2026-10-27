@@ -24,6 +24,9 @@ datapilot:
     username: ${WAREHOUSE_USER:dp_reader}
     password: ${WAREHOUSE_PASSWORD:dp_reader}
     schema: ${WAREHOUSE_SCHEMA:demo_shop}
+    # Schemas a request may pick via its `database` field (comma-separated). Must include `schema`.
+    # The warehouse account needs SELECT on each of them.
+    allowed-schemas: ${WAREHOUSE_ALLOWED_SCHEMAS:demo_shop}
     query-timeout-seconds: 15
     max-rows: 1000
   llm:
@@ -31,6 +34,14 @@ datapilot:
     api-key: ${LLM_API_KEY:not-configured}
     fast-model: ${LLM_FAST_MODEL:deepseek-chat}
     reasoning-model: ${LLM_REASONING_MODEL:deepseek-reasoner}
+  # Limits that bound the cost of one analysis turn. See AgentProperties.
+  agent:
+    max-attempts: 3
+    max-steps: 6
+    max-drill-down-dimensions: 3
+    max-drill-down-rounds: 2
+    history-turns: 3
+    stream-timeout: 5m
 
 management:
   endpoints:

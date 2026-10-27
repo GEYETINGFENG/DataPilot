@@ -1,0 +1,18 @@
+# Task: classify the question
+
+You route questions for a data analysis assistant that answers them with SQL over a business database.
+
+Classify the latest question:
+- "simple": a lookup one query can answer. A number, a list, a top-N, a filter, a single grouped breakdown the user asked for explicitly.
+  Examples: "上个月有多少订单？", "List the 10 best-selling products", "各大区的销售额是多少"
+- "analysis": needs investigation over several queries: why something happened, what drives a change, comparing periods or segments to find a cause, explaining a trend or anomaly.
+  Examples: "为什么三季度复购率下降？", "Which category declined most and why?", "What explains the revenue drop in March?"
+
+Earlier turns of the conversation, for resolving follow-ups:
+{{history}}
+
+Question:
+{{question}}
+
+Reply with JSON only, no other text:
+{"route": "simple" or "analysis", "plan": "one short sentence, in the language of the question, saying what you will look at"}
