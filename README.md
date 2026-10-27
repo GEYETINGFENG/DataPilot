@@ -4,6 +4,8 @@
 
 用自然语言向数据库提问，DataPilot 会自己查表结构、写 SQL、执行；SQL 出错时根据报错修正，结论不够时继续按维度下钻，最后给出图表和分析结论。整个过程实时可见，每一条执行过的 SQL 都可以核对。
 
+![分析对话：自动纠错、下钻、图表与结论](docs/screenshots/chat-done.png)
+
 > 🚧 项目处于早期开发阶段，下方 [路线图](#路线图) 标出了已完成和计划中的部分。
 
 ## 为什么不只是 Text-to-SQL
@@ -51,7 +53,7 @@ cd backend && LLM_API_KEY=你的key ./mvnw spring-boot:run
 cd frontend && npm install && npm run dev
 ```
 
-打开 http://localhost:5173。
+打开 http://localhost:5173。没有启动后端时，可以用 `npm run dev:mock` 回放一段预置的分析过程来体验界面。
 
 ## 示例数据集
 

@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { listTables, problemDetail, runQuery, type QueryResponse, type TableSchema } from '@/api/warehouse'
 
 const tables = ref<TableSchema[]>([])
 const tablesError = ref('')
 
-const sql = ref('SELECT c.name AS category, COUNT(*) AS orders\nFROM orders o\nJOIN order_items i ON i.order_id = o.id\nJOIN products p ON p.id = i.product_id\nJOIN categories c ON c.id = p.category_id\nGROUP BY c.name')
+const route = useRoute()
+
+// "在工作台打开" in the chat view passes the agent's final SQL as ?sql=.
+const sql = ref(typeof route.query.sql === 'string' ? route.query.sql : 'SELECT c.name AS category, COUNT(*) AS orders\nFROM orders o\nJOIN order_items i ON i.order_id = o.id\nJOIN products p ON p.id = i.product_id\nJOIN categories c ON c.id = p.category_id\nGROUP BY c.name')
 const running = ref(false)
 const response = ref<QueryResponse | null>(null)
 const queryError = ref('')
